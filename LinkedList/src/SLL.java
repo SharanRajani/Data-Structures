@@ -76,82 +76,69 @@ public class SLL {
 		return head;
 	}
 
-	static Node delete(Node head)
-	{
+	static Node delete(Node head) {
 		System.out.println("Enter the data to be deleted:");
-		int data=scan.nextInt();
-		if(head.data==data)
-		{
-			Node temp=head.next;
-			head=null;
-			return temp; 
+		int data = scan.nextInt();
+		if (head.data == data) {
+			Node temp = head.next;
+			head = null;
+			return temp;
 		}
-		Node prev=head;
-		Node temp=head.next;
-		while(temp!=null && temp.data!=data)
-		{
-			prev=temp;
-			temp=temp.next;
+		Node prev = head;
+		Node temp = head.next;
+		while (temp != null && temp.data != data) {
+			prev = temp;
+			temp = temp.next;
 		}
-		if(temp!=null)
-		{
-			prev.next=temp.next;
-			temp=null;
-		}
-		else
-		{
+		if (temp != null) {
+			prev.next = temp.next;
+			temp = null;
+		} else {
 			System.out.println("Data to be deleted is not present in the Linked List.");
 		}
 		return head;
 	}
-	
-	static void reverse(Node temp)
-	{
-		if(temp.next!=null)
+
+	static void reverse(Node temp) {
+		if (temp.next != null)
 			reverse(temp.next);
-		System.out.print("\t"+temp.data);
+		System.out.print("\t" + temp.data);
 	}
-	
-	static int findSize(Node head)
-	{
-		int count=0;
-		if(head==null)
+
+	static int findSize(Node head) {
+		int count = 0;
+		if (head == null)
 			return count;
-		Node temp=head;
-		while(temp!=null)
-		{
+		Node temp = head;
+		while (temp != null) {
 			count++;
-			temp=temp.next;
+			temp = temp.next;
 		}
 		return count;
 	}
-	
-	static Node rotate(Node head)
-	{
-		int size=findSize(head);
+
+	static Node rotate(Node head) {
+		int size = findSize(head);
 		System.out.println("Enter the count of rotation:");
-		int count=scan.nextInt();
-		count=count%size;
-		Node prev = null,temp=head;
-		if(count==0)
+		int count = scan.nextInt();
+		count = count % size;
+		Node prev = null, temp = head;
+		if (count == 0)
 			return head;
-		else
-		{
-			while(temp.next!=null)
-			{
-				temp=temp.next;
+		else {
+			while (temp.next != null) {
+				temp = temp.next;
 			}
-			temp.next=head;
+			temp.next = head;
 		}
-		for(int i=0;i<count;i++)
-		{
-			prev=head;
-			head=head.next;
+		for (int i = 0; i < count; i++) {
+			prev = head;
+			head = head.next;
 		}
-		prev.next=null;
+		prev.next = null;
 		return head;
 	}
-	
+
 	public static void main(String[] args) {
 		Node head;
 		head = create();
@@ -173,7 +160,7 @@ public class SLL {
 				reverse(head);
 				break;
 			case 5:
-				head=rotate(head);
+				head = rotate(head);
 				break;
 			}
 			System.out.println("\nDo you want to continue(1 for Yes/2 for No):");
@@ -184,3 +171,4 @@ public class SLL {
 	}
 
 }
+
