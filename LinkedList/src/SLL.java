@@ -99,9 +99,9 @@ public class SLL {
 		return head;
 	}
 
-	static void reverse(Node temp) {
+	static void dreverse(Node temp) {
 		if (temp.next != null)
-			reverse(temp.next);
+			dreverse(temp.next);
 		System.out.print("\t" + temp.data);
 	}
 
@@ -139,11 +139,27 @@ public class SLL {
 		return head;
 	}
 
+	static Node reverse(Node head) {
+		if (head.next == null)
+			return head;
+		Node prev, next, curr;
+		curr = head;
+		prev = next = null;
+		while (curr != null) {
+			next = curr.next;
+			curr.next = prev;
+			prev = curr;
+			curr = next;
+		}
+		return prev;
+	}
+
 	public static void main(String[] args) {
 		Node head;
 		head = create();
 		while (true) {
-			System.out.println("1.Insert\n2.Display\n3.Delete\n4.Reverse\n5.Rotate\nEnter your choice:");
+			System.out.println(
+					"1.Insert\n2.Display\n3.Delete\n4.Display Reverse\n5.Rotate\n6.Reverse the SLL\nEnter your choice:");
 			int ch = scan.nextInt();
 			switch (ch) {
 			case 2:
@@ -157,10 +173,13 @@ public class SLL {
 				break;
 			case 4:
 				System.out.print("The contents of the Linked List in reverse order are as follows:");
-				reverse(head);
+				dreverse(head);
 				break;
 			case 5:
 				head = rotate(head);
+				break;
+			case 6:
+				head = reverse(head);
 				break;
 			}
 			System.out.println("\nDo you want to continue(1 for Yes/2 for No):");
@@ -169,6 +188,4 @@ public class SLL {
 				break;
 		}
 	}
-
 }
-
