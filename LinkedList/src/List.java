@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.Scanner;
 
 class Node {
 	int data;
@@ -15,15 +15,21 @@ class Node {
 	}
 }
 
-public class SLL {
+class SLL {
+
+	Node head;
 
 	static Scanner scan = new Scanner(System.in);
 
-	static Node create() {
+	SLL() {
+		head = null;
+	}
+
+	void create() {
 		int count;
 		System.out.println("Enter the number of Nodes to be created:");
 		count = scan.nextInt();
-		Node head = null, nev, temp = null;
+		Node nev, temp = null;
 		int data;
 		for (int i = 0; i < count; i++) {
 			System.out.println("Enter the data for node " + (i + 1) + ":");
@@ -37,18 +43,18 @@ public class SLL {
 				temp = temp.next;
 			}
 		}
-		return head;
 	}
 
-	static void display(Node temp) {
+	void display() {
 		System.out.print("The contents of the Linked-List are as follows:");
+		Node temp = head;
 		while (temp != null) {
 			System.out.print("\t" + temp.data);
 			temp = temp.next;
 		}
 	}
 
-	static Node insert(Node head) {
+	Node insert() {
 		System.out.println("Enter the position at which the node is to be inserted:");
 		int pos = scan.nextInt();
 		System.out.println("Enter the data of the new node:");
@@ -76,13 +82,13 @@ public class SLL {
 		return head;
 	}
 
-	static Node delete(Node head) {
+	void delete() {
 		System.out.println("Enter the data to be deleted:");
 		int data = scan.nextInt();
 		if (head.data == data) {
-			Node temp = head.next;
-			head = null;
-			return temp;
+			Node temp = head;
+			head = head.next;
+			temp = null;
 		}
 		Node prev = head;
 		Node temp = head.next;
@@ -96,10 +102,9 @@ public class SLL {
 		} else {
 			System.out.println("Data to be deleted is not present in the Linked List.");
 		}
-		return head;
 	}
 
-	static void dreverse(Node temp) {
+	void dreverse(Node temp) {
 		if (temp.next != null)
 			dreverse(temp.next);
 		System.out.print("\t" + temp.data);
@@ -117,69 +122,71 @@ public class SLL {
 		return count;
 	}
 
-	static Node rotate(Node head) {
+	void rotate() {
 		int size = findSize(head);
 		System.out.println("Enter the count of rotation:");
 		int count = scan.nextInt();
 		count = count % size;
 		Node prev = null, temp = head;
-		if (count == 0)
-			return head;
-		else {
+		if (count != 0) {
 			while (temp.next != null) {
 				temp = temp.next;
 			}
 			temp.next = head;
+			for (int i = 0; i < count; i++) {
+				prev = head;
+				head = head.next;
+			}
+			prev.next = null;
 		}
-		for (int i = 0; i < count; i++) {
-			prev = head;
-			head = head.next;
-		}
-		prev.next = null;
-		return head;
 	}
 
-	static Node reverse(Node head) {
-		if (head.next == null)
-			return head;
-		Node prev, next, curr;
-		curr = head;
-		prev = next = null;
-		while (curr != null) {
-			next = curr.next;
-			curr.next = prev;
-			prev = curr;
-			curr = next;
+	void reverse() {
+		if (head.next != null) {
+			Node prev, next, curr;
+			curr = head;
+			prev = next = null;
+			while (curr != null) {
+				next = curr.next;
+				curr.next = prev;
+				prev = curr;
+				curr = next;
+			}
+			head = prev;
 		}
-		return prev;
 	}
+
+}
+
+public class List {
+
+	static Scanner scan = new Scanner(System.in);
 
 	public static void main(String[] args) {
-		Node head;
-		head = create();
+		SLL l1 = new SLL();
+		l1.create();
 		while (true) {
-			System.out.println(
-					"1.Insert\n2.Display\n3.Delete\n4.Display Reverse\n5.Rotate\n6.Reverse the SLL\nEnter your choice:");
+	System.out.println("1.Insert\n2.Display\n3.Delete\n4.Display Reverse\n5.Rotate\n6.Reverse the SLL\nEnter your choice:");
 			int ch = scan.nextInt();
 			switch (ch) {
 			case 2:
-				display(head);
+				l1.display();
 				break;
 			case 1:
-				head = insert(head);
+				l1.head = l1.insert();
 				break;
 			case 3:
-				head = delete(head);
+				l1.delete();
 				break;
 			case 4:
 				System.out.print("The contents of the Linked List in reverse order are as follows:");
-				dreverse(head);
+				l1.dreverse(l1.head);
 				break;
 			case 5:
-				head = rotate(head);
+				l1.rotate();
 				break;
 			case 6:
-				head = reverse(head);
+				l1.reverse();
 				break;
 			}
 			System.out.println("\nDo you want to continue(1 for Yes/2 for No):");
