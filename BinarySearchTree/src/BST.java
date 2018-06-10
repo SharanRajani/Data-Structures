@@ -23,9 +23,15 @@ class Node {
 	}
 }
 
-public class BST {
+class BinarySearchTree {
+
+	Node root;
 
 	static Scanner scan = new Scanner(System.in);
+
+	BinarySearchTree() {
+		root = null;
+	}
 
 	static Node insert(Node temp, int data) {
 		if (temp == null) {
@@ -41,7 +47,7 @@ public class BST {
 		}
 	}
 
-	static void preorderDisplay(Node temp) {
+	void preorderDisplay(Node temp) {
 		if (temp != null) {
 			System.out.print("\t" + temp.data);
 			preorderDisplay(temp.left);
@@ -49,7 +55,7 @@ public class BST {
 		}
 	}
 
-	static void inorderDisplay(Node temp) {
+	void inorderDisplay(Node temp) {
 		if (temp != null) {
 			inorderDisplay(temp.left);
 			System.out.print("\t" + temp.data);
@@ -57,7 +63,7 @@ public class BST {
 		}
 	}
 
-	static void postorderDisplay(Node temp) {
+	void postorderDisplay(Node temp) {
 		if (temp != null) {
 			postorderDisplay(temp.left);
 			postorderDisplay(temp.right);
@@ -65,19 +71,17 @@ public class BST {
 		}
 	}
 
-	static Node create() {
+	void create() {
 		System.out.println("Enter the number of elements to be inserted:");
 		int count = scan.nextInt();
-		Node root = null;
 		System.out.println("Enter the values of the nodes:");
 		for (int i = 0; i < count; i++) {
 			int data = scan.nextInt();
 			root = insert(root, data);
 		}
-		return root;
 	}
 
-	static void search(Node temp, int data) {
+	void search(Node temp, int data) {
 		if (temp == null)
 			System.out.println("Value not found.");
 		else if (temp.data == data)
@@ -97,7 +101,7 @@ public class BST {
 		return temp.data;
 	}
 
-	static Node delete(Node temp, int data) {
+	Node delete(Node temp, int data) {
 		if (temp == null) {
 			System.out.println("Value to be deleted not present.");
 			return temp;
@@ -120,41 +124,46 @@ public class BST {
 		}
 		return temp;
 	}
+}
+
+public class BST {
+
+	static Scanner scan = new Scanner(System.in);
 
 	public static void main(String[] args) {
-		Node root = create();
+		BinarySearchTree tree = new BinarySearchTree();
+		tree.create();
 		int data;
 		while (true) {
-			System.out.println(
-					"1.Insert\n2.Preorder Display\n3.Inorder Display\n4.Postorder Display\n5.Search\n6.Delete\nEnter your choice:");
+System.out.println("1.Insert\n2.Preorder Display\n3.Inorder Display\n4.Postorder Display\n5.Search\n6.Delete\nEnter your choice:");
 			int ch = scan.nextInt();
 			switch (ch) {
 			case 1:
 				System.out.println("\nEnter the value of the element:");
 				data = scan.nextInt();
-				insert(root, data);
+				tree.root = BinarySearchTree.insert(tree.root, data);
 				break;
 			case 2:
 				System.out.print("The PreOrder Traversal is as follows:");
-				preorderDisplay(root);
+				tree.preorderDisplay(tree.root);
 				break;
 			case 3:
 				System.out.print("The InOrder Traversal is as follows:");
-				inorderDisplay(root);
+				tree.inorderDisplay(tree.root);
 				break;
 			case 4:
 				System.out.print("The PostOrder Traversal is as follows:");
-				postorderDisplay(root);
+				tree.postorderDisplay(tree.root);
 				break;
 			case 5:
 				System.out.println("Enter the data to be searched:");
 				data = scan.nextInt();
-				search(root, data);
+				tree.search(tree.root, data);
 				break;
 			case 6:
 				System.out.println("Enter the data to be deleted:");
 				data = scan.nextInt();
-				root = delete(root, data);
+				tree.root = tree.delete(tree.root, data);
 			}
 			System.out.println("\nDo you want to continue(1 for Yes/2 for No):");
 			int choice = scan.nextInt();
@@ -162,5 +171,4 @@ public class BST {
 				break;
 		}
 	}
-
 }
